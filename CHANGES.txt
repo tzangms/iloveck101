@@ -1,3 +1,4 @@
 v0.1.0, 2013.12.02 -- Initial release.
 v0.1.1, 2013.12.02 -- Update MANIFEST.in
 v0.2.0, 2013.12.03 -- Improvements, Retry 3 times when error, save images to ~/Pictures/iloveck101, URL restriction
+v0.3.0, 2013.12.03 -- fix Retry, and folder name with slash error.
