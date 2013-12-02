@@ -1,1 +1,2 @@
-include *.txt
+include setup.py README.md MANIFEST.in *.txt
+recursive-include iloveck101 *
