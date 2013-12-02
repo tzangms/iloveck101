@@ -6,3 +6,12 @@
 其實我想把圖片 (by thread) 都丟成一篇 Evernote post, 但是今天一直在開會, 只能寫成這樣了。
 
 by 海總理 2012.12.02
+
+How to Use
+-------------
+
+```bash
+$ python iloveck101.py [url]
+```
+
+
