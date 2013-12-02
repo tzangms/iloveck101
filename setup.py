@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='iloveck101',
-    version='0.1.1',
+    version='0.2.0',
     author='tzangms',
     author_email='tzangms@gmail.com',
     packages=['iloveck101'],

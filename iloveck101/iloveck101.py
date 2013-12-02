@@ -15,16 +15,30 @@ def iloveck101(url):
 
     # find thread id
     m = re.match('thread-(\d+)-.*', url.rsplit('/', 1)[1])
+    if not m:
+        sys.exit('URL pattern should be something like this: http://ck101.com/thread-2593278-1-1.html')
+
     thread_id = m.group(1)
 
-    # create image folder
-    if not os.path.exists('images'):
-        os.mkdir('images')
+    # create `iloveck101` folder in ~/Pictures
+    home = os.path.expanduser("~")
+    base_folder = os.path.join(home, 'Pictures/iloveck101')
+    if not os.path.exists(base_folder):
+        os.mkdir(base_folder)
+
 
     # fetch html and find images
-    resp = requests.get(url)
-    if resp.status_code != 200:
-        sys.exit('Oops')
+    for attemp in range(3):
+        resp = requests.get(url)
+        if resp.status_code != 200:
+            sys.exit('Oops, ck101 maybe down')
+
+        if resp.content == '':
+            print 'retrying ...'
+            continue
+
+        elif resp.content != '':
+            break
 
 
     # parse html
@@ -37,7 +51,7 @@ def iloveck101(url):
         sys.exit('There is no content, please try again.')
 
     # create target folder for saving images
-    folder = os.path.join('images', "%s - %s" % (thread_id, title))
+    folder = os.path.join(base_folder, "%s - %s" % (thread_id, title))
     if not os.path.exists(folder):
         os.mkdir(folder)
 
