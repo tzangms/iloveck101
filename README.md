@@ -15,7 +15,7 @@ by tzangms aka 海總理 2012.12.02
 ==========
 
 ```bash
-$ pip install iloveck101
+$ sudo pip install iloveck101
 ```
 
 
