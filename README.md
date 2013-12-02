@@ -14,4 +14,8 @@ How to Use
 $ python iloveck101.py [url]
 ```
 
+for example, 你可以試試看思穎
 
+```bash
+$ python iloveck101.py http://ck101.com/thread-2876990-1-1.html
+```
