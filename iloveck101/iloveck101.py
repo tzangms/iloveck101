@@ -64,10 +64,15 @@ def iloveck101(url):
         with open(os.path.join(folder, filename), 'wb+') as f:
             f.write(resp.content)
 
-if __name__ == '__main__':
+
+def main():
     try:
         url = sys.argv[1]
     except IndexError:
         sys.exit('Please provide URL from ck101')
 
     iloveck101(url)
+
+
+if __name__ == '__main__':
+    main()

@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='iloveck101',
@@ -10,7 +10,12 @@ setup(
     license='LICENSE.txt',
     description='Download images from ck101 thread',
     long_description=open('README.md').read(),
-    install_requires=[
+    entry_points = {
+        'console_scripts': [
+            'iloveck101 = iloveck101.iloveck101:main',
+        ]
+    },
+    install_requires = [
         "lxml==3.2.4",
         "requests==2.0.1",
         "Pillow==2.2.1",
