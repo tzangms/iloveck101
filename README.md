@@ -32,3 +32,10 @@ for example, 你可以試試看思穎
 ```bash
 $ iloveck101 http://ck101.com/thread-2876990-1-1.html
 ```
+
+
+看起來像這樣
+==============
+
+![圖片資料夾](https://raw.github.com/tzangms/iloveck101/master/docs/images1.png) 
+![圖片](https://raw.github.com/tzangms/iloveck101/master/docs/images2.png) 
