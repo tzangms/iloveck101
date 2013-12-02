@@ -1,21 +1,32 @@
 我愛卡提諾
 ==========
 
-沒錯，你沒看錯，我愛卡提諾，只是我只想看圖，卡提諾的網站他媽載入太慢 # 但其實是我電腦太慢
+沒錯, 你沒看錯, 我愛卡提諾。
 
-其實我想把圖片 (by thread) 都丟成一篇 Evernote post, 但是今天一直在開會, 只能寫成這樣了。
+我只想看圖, 可是卡提諾的網站載入太慢, 一堆廣告跟不必要的資訊, 還要等圖片 lazy load, 所以寫了這個 iloveck101, 目前只支援 Mac, Linux 我不確定。
 
 by 海總理 2012.12.02
 
-How to Use
+
+
+如何安裝
+==========
+
+```bash
+$ pip install iloveck101
+```
+
+
+如何使用
 ===========
 
 ```bash
-$ python iloveck101.py [url]
+$ iloveck101 [url]
+
 ```
 
 for example, 你可以試試看思穎
 
 ```bash
-$ python iloveck101.py http://ck101.com/thread-2876990-1-1.html
+$ iloveck101 http://ck101.com/thread-2876990-1-1.html
 ```
