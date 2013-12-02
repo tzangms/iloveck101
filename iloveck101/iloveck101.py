@@ -34,7 +34,7 @@ def iloveck101(url):
     try:
         title = html.find('.//title').text.split(' - ')[0].strip()
     except AttributeError:
-        assert False, 'There is no content, please try again.'
+        sys.exit('There is no content, please try again.')
 
     # create target folder for saving images
     folder = os.path.join('images', "%s - %s" % (thread_id, title))
