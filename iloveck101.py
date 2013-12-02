@@ -13,28 +13,42 @@ url = sys.argv[1]
 m = re.match('thread-(\d+)-.*', url.rsplit('/', 1)[1])
 thread_id = m.group(1)
 
-# create required folders
+# create image folder
 if not os.path.exists('images'):
     os.mkdir('images')
 
-folder = os.path.join('images', thread_id)
+# fetch html and find images
+resp = requests.get(url)
+if resp.status_code != 200:
+    sys.exit('Oops')
+
+
+# parse html
+html = etree.HTML(resp.content)
+
+# title
+try:
+    title = html.find('.//title').text.split(' - ')[0].strip()
+except AttributeError:
+    assert False, 'There is no content, please try again.'
+
+# create target folder for saving images
+folder = os.path.join('images', "%s - %s" % (thread_id, title))
 if not os.path.exists(folder):
     os.mkdir(folder)
 
-# fetch html and find images
-resp = requests.get(url)
-html = etree.HTML(resp.content)
+# iterate and save images
 image_urls = html.xpath('//img/@file')
-
-# save images
 for image_url in image_urls:
     filename = image_url.rsplit('/', 1)[1]
 
     # ignore useless image
-    try:
-        resp = requests.get(image_url)
-    except requests.exceptions.MissingSchema:
+    if not image_url.startswith('http'):
         continue
+
+    # fetch image
+    print 'Fetching %s ...' % image_url
+    resp = requests.get(image_url)
 
     # ignore small images
     im = Image.open(StringIO(resp.content))
