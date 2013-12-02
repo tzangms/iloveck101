@@ -31,24 +31,19 @@ def iloveck101(url):
     for attemp in range(3):
         resp = requests.get(url)
         if resp.status_code != 200:
-            sys.exit('Oops, ck101 maybe down')
-
-        if resp.content == '':
-            print 'retrying ...'
+            print 'Retrying ...'
             continue
 
-        elif resp.content != '':
+        # parse html
+        html = etree.HTML(resp.content)
+
+        # title
+        try:
+            title = html.find('.//title').text.split(' - ')[0].replace('/', '').strip()
             break
-
-
-    # parse html
-    html = etree.HTML(resp.content)
-
-    # title
-    try:
-        title = html.find('.//title').text.split(' - ')[0].strip()
-    except AttributeError:
-        sys.exit('There is no content, please try again.')
+        except AttributeError:
+            print 'Retrying ...'
+            continue
 
     # create target folder for saving images
     folder = os.path.join(base_folder, "%s - %s" % (thread_id, title))
