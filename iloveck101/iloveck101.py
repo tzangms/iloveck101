@@ -1,11 +1,10 @@
 import os
 import sys
 import re
-from cStringIO import StringIO
 
 import requests
-from PIL import Image
 from lxml import etree
+from utils import get_image_info
 
 
 def iloveck101(url):
@@ -64,8 +63,7 @@ def iloveck101(url):
         resp = requests.get(image_url)
 
         # ignore small images
-        im = Image.open(StringIO(resp.content))
-        width, height = im.size
+        content_type, width, height = get_image_info(resp.content)
         if width < 400 or height < 400:
             continue
 
