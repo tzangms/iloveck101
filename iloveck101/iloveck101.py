@@ -6,10 +6,12 @@ import requests
 from lxml import etree
 from utils import get_image_info
 
+BASE_URL = 'http://ck101.com/'
+
 
 def iloveck101(url):
     """
-    download images from given ck101 URL
+    Determine the url is valid. And check if the url contains any thread link or it's a thread.
     """
 
     if 'ck101.com' in url:
@@ -24,27 +26,38 @@ def iloveck101(url):
 
 
 def retrieveThreadList(url):
-    # this url shows all the threads, so we get every thread's link.
+    """
+    The url may contains many thread links. We parse them out.
+    """
+
     resp = requests.get(url)
 
     # parse html
     html = etree.HTML(resp.content)
 
-    threads = html.xpath('//ul[@id="waterfall"]//li//a/@href')
-    if threads:
-        for thread in threads:
-            print 'Visit ' + thread
-            yield thread
+    links = html.xpath('//a/@href')
+    if links:
+        for link in links:
+            yield link
     else:
         yield None
 
 
 def retrieveThread(url):
+    """
+    download images from given ck101 URL
+    """
+
+    # check if the url has http prefix
+    if not url.startswith('http'):
+        url = BASE_URL + url
+
     # find thread id
     m = re.match('thread-(\d+)-.*', url.rsplit('/', 1)[1])
     if not m:
-        #sys.exit('URL pattern should be something like this: http://ck101.com/thread-2593278-1-1.html')
         return
+
+    print '\nVisit %s' % (url)
 
     thread_id = m.group(1)
 
