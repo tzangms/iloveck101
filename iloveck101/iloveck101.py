@@ -12,10 +12,39 @@ def iloveck101(url):
     download images from given ck101 URL
     """
 
+    if 'ck101.com' in url:
+        if 'thread' in url:
+            retrieveThread(url)
+        else:
+            for thread in retrieveThreadList(url):
+                if thread is not None:
+                    retrieveThread(thread)
+    else:
+        sys.exit('This is not ck101 url')
+
+
+def retrieveThreadList(url):
+    # this url shows all the threads, so we get every thread's link.
+    resp = requests.get(url)
+
+    # parse html
+    html = etree.HTML(resp.content)
+
+    threads = html.xpath('//ul[@id="waterfall"]//li//a/@href')
+    if threads:
+        for thread in threads:
+            print 'Visit ' + thread
+            yield thread
+    else:
+        yield None
+
+
+def retrieveThread(url):
     # find thread id
     m = re.match('thread-(\d+)-.*', url.rsplit('/', 1)[1])
     if not m:
-        sys.exit('URL pattern should be something like this: http://ck101.com/thread-2593278-1-1.html')
+        #sys.exit('URL pattern should be something like this: http://ck101.com/thread-2593278-1-1.html')
+        return
 
     thread_id = m.group(1)
 
