@@ -10,8 +10,11 @@ monkey.patch_all()
 import requests
 from lxml import etree
 from utils import get_image_info
+from more_itertools import chunked
 
 REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}
+CHUNK_SIZE = 3
+
 
 def iloveck101(url):
     """
@@ -79,9 +82,10 @@ def iloveck101(url):
         with open(os.path.join(folder, filename), 'wb+') as f:
             f.write(resp.content)
 
-    jobs = [gevent.spawn(process_image_worker, image_url)
-            for image_url in image_urls]
-    gevent.joinall(jobs)
+    for chunked_image_urls in chunked(image_urls, CHUNK_SIZE):
+        jobs = [gevent.spawn(process_image_worker, image_url)
+                for image_url in chunked_image_urls]
+        gevent.joinall(jobs)
 
 
 def main():
