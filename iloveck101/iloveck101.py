@@ -6,6 +6,7 @@ import requests
 from lxml import etree
 from utils import get_image_info
 
+REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0'}
 
 def iloveck101(url):
     """
@@ -28,7 +29,7 @@ def iloveck101(url):
 
     # fetch html and find images
     for attemp in range(3):
-        resp = requests.get(url)
+        resp = requests.get(url, headers=REQUEST_HEADERS)
         if resp.status_code != 200:
             print 'Retrying ...'
             continue
