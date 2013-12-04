@@ -2,6 +2,11 @@ import os
 import sys
 import re
 
+import gevent
+from gevent import monkey
+
+monkey.patch_all()
+
 import requests
 from lxml import etree
 from utils import get_image_info
@@ -51,12 +56,13 @@ def iloveck101(url):
 
     # iterate and save images
     image_urls = html.xpath('//img/@file')
-    for image_url in image_urls:
+
+    def process_image_worker(image_url):
         filename = image_url.rsplit('/', 1)[1]
 
         # ignore useless image
         if not image_url.startswith('http'):
-            continue
+            return
 
         # fetch image
         print 'Fetching %s ...' % image_url
@@ -65,11 +71,15 @@ def iloveck101(url):
         # ignore small images
         content_type, width, height = get_image_info(resp.content)
         if width < 400 or height < 400:
-            continue
+            return
 
         # save image
         with open(os.path.join(folder, filename), 'wb+') as f:
             f.write(resp.content)
+
+    jobs = [gevent.spawn(process_image_worker, image_url)
+            for image_url in image_urls]
+    gevent.joinall(jobs)
 
 
 def main():
