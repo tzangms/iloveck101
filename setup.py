@@ -18,5 +18,6 @@ setup(
     install_requires = [
         "lxml==3.2.4",
         "requests==2.0.1",
+        "gevent==1.0",
     ],
 )
