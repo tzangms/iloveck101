@@ -11,7 +11,7 @@ import requests
 from lxml import etree
 from utils import get_image_info
 
-REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0'}
+REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}
 
 def iloveck101(url):
     """
@@ -67,11 +67,12 @@ def iloveck101(url):
 
         # fetch image
         print 'Fetching %s ...' % image_url
-        resp = requests.get(image_url)
+        resp = requests.get(image_url, headers=REQUEST_HEADERS)
 
         # ignore small images
         content_type, width, height = get_image_info(resp.content)
         if width < 400 or height < 400:
+            print "image is too small"
             return
 
         # save image
