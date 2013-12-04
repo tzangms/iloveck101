@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='iloveck101',
-    version='0.4.0',
+    version='0.5.0',
     author='tzangms',
     author_email='tzangms@gmail.com',
     packages=['iloveck101'],
@@ -18,5 +18,6 @@ setup(
     install_requires = [
         "lxml==3.2.4",
         "requests==2.0.1",
+        "gevent==1.0",
     ],
 )

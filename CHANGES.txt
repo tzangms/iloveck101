@@ -3,3 +3,4 @@ v0.1.1, 2013.12.02 -- Update MANIFEST.in
 v0.2.0, 2013.12.03 -- Improvements, Retry 3 times when error, save images to ~/Pictures/iloveck101, URL restriction
 v0.3.0, 2013.12.03 -- fix Retry, and folder name with slash error.
 v0.4.0, 2013.12.03 -- Remove Pillow dependency, it's too large, and required to compile
+v0.5.0, 2013.12.04 -- Add user agent by @kenzouyeh, use `gevent` to speed up by @yhchan
