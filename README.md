@@ -9,7 +9,7 @@
 
 目前只支援 Mac, Linux 我不確定。
 
-by tzangms aka 海總理 2012.12.02
+by tzangms aka 海總理 2013.12.02
 
 
 
