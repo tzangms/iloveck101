@@ -1,13 +1,15 @@
 我愛卡提諾
 ==========
 
+![](https://badge.fury.io/py/iloveck101.png)
+
 沒錯, 你沒看錯, 我愛卡提諾。
 
 我只想看圖, 可是卡提諾的網站載入太慢, 一堆廣告跟不必要的資訊, 還要等圖片 lazy load, 所以寫了這個 iloveck101, 直接先把圖片都下載下來, 看圖快多了。
 
 目前只支援 Mac, Linux 我不確定。
 
-by tzangms aka 海總理 2012.12.02
+by tzangms aka 海總理 2013.12.02
 
 
 

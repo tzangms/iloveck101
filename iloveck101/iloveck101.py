@@ -11,7 +11,6 @@ import requests
 from lxml import etree
 from utils import get_image_info
 
-
 REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'}
 BASE_URL = 'http://ck101.com/'
 
@@ -74,7 +73,6 @@ def retrieveThread(url):
     if not os.path.exists(base_folder):
         os.mkdir(base_folder)
 
-
     # fetch html and find images
     for attemp in range(3):
         resp = requests.get(url, headers=REQUEST_HEADERS)
@@ -115,6 +113,7 @@ def retrieveThread(url):
         # ignore small images
         content_type, width, height = get_image_info(resp.content)
         if width < 400 or height < 400:
+            print "image is too small"
             return
 
         # save image
