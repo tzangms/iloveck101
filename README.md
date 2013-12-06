@@ -1,7 +1,7 @@
 我愛卡提諾
 ==========
 
-![](https://badge.fury.io/py/iloveck101.png)
+[![PyPI Version](https://badge.fury.io/py/iloveck101.png)](https://pypi.python.org/pypi/iloveck101) [![Build Status](https://travis-ci.org/tzangms/iloveck101.png?branch=master)](https://travis-ci.org/tzangms/iloveck101) [![Coverage Status](https://coveralls.io/repos/tzangms/iloveck101/badge.png)](https://coveralls.io/r/tzangms/iloveck101) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tzangms/iloveck101/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 沒錯, 你沒看錯, 我愛卡提諾。
 
@@ -44,7 +44,4 @@ $ iloveck101 http://ck101.com/thread-2876990-1-1.html
 
 ![圖片資料夾](https://raw.github.com/tzangms/iloveck101/master/docs/images1.png) 
 ![圖片](https://raw.github.com/tzangms/iloveck101/master/docs/images2.png) 
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tzangms/iloveck101/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
