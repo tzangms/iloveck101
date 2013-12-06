@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import platform
 
 import gevent
 from gevent import monkey
@@ -69,9 +70,17 @@ def retrieve_thread(url):
 
     thread_id = m.group(1)
 
+
     # create `iloveck101` folder in ~/Pictures
+    system = platform.system()
+    if system == 'Darwin':
+        picfolder = 'Pictures'
+    else:
+        picfolder = ''
+
     home = os.path.expanduser("~")
-    base_folder = os.path.join(home, 'Pictures/iloveck101')
+    base_folder = os.path.join(home, picfolder, 'iloveck101')
+
     if not os.path.exists(base_folder):
         os.mkdir(base_folder)
 
