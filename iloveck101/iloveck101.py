@@ -5,14 +5,15 @@ import platform
 
 import gevent
 from gevent import monkey
-
-monkey.patch_all()
-
 import requests
 from lxml import etree
-from utils import get_image_info, parse_url
-from exceptions import URLParseError
 from more_itertools import chunked
+
+from .utils import get_image_info, parse_url
+from .exceptions import URLParseError
+
+
+monkey.patch_all()
 
 REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}
 BASE_URL = 'http://ck101.com/'
@@ -130,7 +131,3 @@ def main():
         sys.exit('Please provide URL from ck101')
 
     iloveck101(url)
-
-
-if __name__ == '__main__':
-    main()

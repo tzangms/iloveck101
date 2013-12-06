@@ -4,10 +4,14 @@ from cStringIO import StringIO
 import requests
 from lxml import etree
 
-from exceptions import URLParseError
+from .exceptions import URLParseError
 
 
 def get_image_info(data):
+    """
+    read image dimension
+    """
+
     data = str(data)
     size = len(data)
     height = -1
@@ -65,7 +69,6 @@ def get_image_info(data):
             pass
 
     return content_type, width, height
-
 
 def parse_url(url):
     """
