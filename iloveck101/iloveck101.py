@@ -24,16 +24,16 @@ def iloveck101(url):
 
     if 'ck101.com' in url:
         if 'thread' in url:
-            retrieveThread(url)
+            retrieve_thread(url)
         else:
-            for thread in retrieveThreadList(url):
+            for thread in retrieve_thread_list(url):
                 if thread is not None:
-                    retrieveThread(thread)
+                    retrieve_thread(thread)
     else:
         sys.exit('This is not ck101 url')
 
 
-def retrieveThreadList(url):
+def retrieve_thread_list(url):
     """
     The url may contains many thread links. We parse them out.
     """
@@ -51,7 +51,7 @@ def retrieveThreadList(url):
         yield None
 
 
-def retrieveThread(url):
+def retrieve_thread(url):
     """
     download images from given ck101 URL
     """
