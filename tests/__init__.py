@@ -52,7 +52,10 @@ class CK101Test(unittest.TestCase):
             iloveck101(self.list_url)
 
     def test_not_ck101(self):
-        iloveck101('http://google.com/')
+        with self.assertRaises(SystemExit) as cm:
+            iloveck101('http://google.com/')
+
+        self.assertEqual(cm.exception.code, 'This is not ck101 url')
 
 
 class UtilsTest(unittest.TestCase):
@@ -68,15 +71,35 @@ class UtilsTest(unittest.TestCase):
         self.assertEqual(len(image_urls), 39)
 
 
-    def test_image_info(self):
-        image = os.path.join('fixtures', 'jYY7oMF.jpg')
+    def test_get_image_info(self):
+        jpg = os.path.join('fixtures', 'jYY7oMF.jpg')
 
-        with open(os.path.join(TEST_DIR, image)) as f:
+        with open(os.path.join(TEST_DIR, jpg)) as f:
             content_type, width, height = get_image_info(f.read())
 
         self.assertEqual(content_type, 'image/jpeg')
         self.assertEqual(width, 612)
         self.assertEqual(height, 612)
+
+
+        png = os.path.join('fixtures', 'firefox.png')
+
+        with open(os.path.join(TEST_DIR, png)) as f:
+            content_type, width, height = get_image_info(f.read())
+
+        self.assertEqual(content_type, 'image/png')
+        self.assertEqual(width, 256)
+        self.assertEqual(height, 256)
+
+
+        gif = os.path.join('fixtures', 'firefox.gif')
+
+        with open(os.path.join(TEST_DIR, gif)) as f:
+            content_type, width, height = get_image_info(f.read())
+
+        self.assertEqual(content_type, 'image/gif')
+        self.assertEqual(width, 256)
+        self.assertEqual(height, 256)
 
 
 if __name__ == '__main__':
