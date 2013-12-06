@@ -85,6 +85,7 @@ def retrieve_thread(url):
         os.mkdir(base_folder)
 
     # fetch html and find images
+    title = None
     for attemp in range(3):
         resp = requests.get(url, headers=REQUEST_HEADERS)
         if resp.status_code != 200:
@@ -101,6 +102,11 @@ def retrieve_thread(url):
         except AttributeError:
             print 'Retrying ...'
             continue
+
+
+    if title is None:
+        sys.exit('Oops, can not fetch the page')
+
 
     # create target folder for saving images
     folder = os.path.join(base_folder, "%s - %s" % (thread_id, title))

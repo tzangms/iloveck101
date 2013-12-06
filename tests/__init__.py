@@ -7,6 +7,7 @@ from iloveck101.utils import parse_url, get_image_info
 from iloveck101.iloveck101 import iloveck101
 from httmock import urlmatch, HTTMock
 
+TEST_DIR = os.path.abspath(os.path.join(__file__, '..'))
 
 class CK101Test(unittest.TestCase):
     def setUp(self):
@@ -16,7 +17,11 @@ class CK101Test(unittest.TestCase):
 
         @urlmatch(netloc=r'(.*\.)?ck101\.com$')
         def ck101_mock(url, request):
-            return 'Feeling lucky, punk?'
+            html = os.path.join('fixtures', '2818521.html')
+            with open(os.path.join(TEST_DIR, html)) as f:
+                content = f.read()
+
+            return content
 
         with HTTMock(ck101_mock):
             iloveck101(self.url)
@@ -35,9 +40,8 @@ class UtilsTest(unittest.TestCase):
 
     def test_image_info(self):
         image = os.path.join('fixtures', 'jYY7oMF.jpg')
-        test_dir = os.path.abspath(os.path.join(__file__, '..'))
 
-        with open(os.path.join(test_dir, image)) as f:
+        with open(os.path.join(TEST_DIR, image)) as f:
             content_type, width, height = get_image_info(f.read())
 
         self.assertEqual(content_type, 'image/jpeg')
