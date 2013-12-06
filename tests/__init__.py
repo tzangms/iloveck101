@@ -4,7 +4,7 @@ import os
 import unittest
 
 from iloveck101.utils import parse_url, get_image_info
-from iloveck101.iloveck101 import iloveck101
+from iloveck101.iloveck101 import iloveck101, main
 from iloveck101.exceptions import URLParseError
 from httmock import urlmatch, HTTMock, all_requests
 
@@ -59,6 +59,9 @@ class CK101Test(unittest.TestCase):
         with HTTMock(list_mock, image_mock):
             iloveck101(self.list_url)
 
+        with HTTMock(error_mock):
+            iloveck101(self.list_url)
+
     def test_not_ck101(self):
         with self.assertRaises(SystemExit) as cm:
             iloveck101('http://google.com/')
@@ -71,6 +74,12 @@ class CK101Test(unittest.TestCase):
                 iloveck101(self.thread_url)
 
         self.assertEqual(cm.exception.code, 'Oops, can not fetch the page')
+
+    def test_main(self):
+        with self.assertRaises(SystemExit) as cm:
+            main()
+
+        self.assertEqual(cm.exception.code, 'This is not ck101 url')
 
 
 class UtilsTest(unittest.TestCase):
@@ -89,7 +98,6 @@ class UtilsTest(unittest.TestCase):
         with HTTMock(error_mock):
             with self.assertRaises(URLParseError):
                 title, image_urls = parse_url(self.url)
-
 
     def test_get_image_info(self):
         jpg = os.path.join('fixtures', 'jYY7oMF.jpg')

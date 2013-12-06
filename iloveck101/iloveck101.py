@@ -47,11 +47,8 @@ def retrieve_thread_list(url):
     html = etree.HTML(resp.content)
 
     links = html.xpath('//a/@href')
-    if links:
-        for link in links:
-            yield link
-    else:
-        yield None
+    for link in links:
+        yield link
 
 
 def retrieve_thread(url):
