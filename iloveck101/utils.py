@@ -4,6 +4,8 @@ from cStringIO import StringIO
 import requests
 from lxml import etree
 
+from exceptions import URLParseError
+
 
 def get_image_info(data):
     data = str(data)
@@ -75,6 +77,7 @@ def parse_url(url):
     }
 
     # fetch html and find images
+    title = None
     for attemp in range(3):
         resp = requests.get(url, headers=REQUEST_HEADERS)
         if resp.status_code != 200:
@@ -92,6 +95,8 @@ def parse_url(url):
             print 'Retrying ...'
             continue
 
+    if title is None:
+        raise URLParseError
+
     image_urls = html.xpath('//img/@file')
     return title, image_urls
- 

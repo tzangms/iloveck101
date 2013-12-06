@@ -5,9 +5,12 @@ import unittest
 
 from iloveck101.utils import parse_url, get_image_info
 from iloveck101.iloveck101 import iloveck101
+from iloveck101.exceptions import URLParseError
 from httmock import urlmatch, HTTMock, all_requests
 
+
 TEST_DIR = os.path.abspath(os.path.join(__file__, '..'))
+
 
 @urlmatch(netloc=r'(.*\.)?imgs\.cc$')
 def image_mock(url, request):
@@ -35,6 +38,11 @@ def list_mock(url, request):
 
     return content
 
+@all_requests
+def error_mock(url, request):
+    return {'status_code': 200, 'content': 'Hi'}
+
+
 
 class CK101Test(unittest.TestCase):
     def setUp(self):
@@ -57,6 +65,13 @@ class CK101Test(unittest.TestCase):
 
         self.assertEqual(cm.exception.code, 'This is not ck101 url')
 
+    def test_retry(self):
+        with HTTMock(error_mock):
+            with self.assertRaises(SystemExit) as cm:
+                iloveck101(self.thread_url)
+
+        self.assertEqual(cm.exception.code, 'Oops, can not fetch the page')
+
 
 class UtilsTest(unittest.TestCase):
     def setUp(self):
@@ -69,6 +84,11 @@ class UtilsTest(unittest.TestCase):
 
         self.assertEqual(title, u'蔡依林+心凌的綜合體？！19歲「無名時代的正妹」陳敬宣現在正翻了......')
         self.assertEqual(len(image_urls), 39)
+
+    def test_parse_url_error(self):
+        with HTTMock(error_mock):
+            with self.assertRaises(URLParseError):
+                title, image_urls = parse_url(self.url)
 
 
     def test_get_image_info(self):

@@ -1,0 +1,2 @@
+class URLParseError(Exception):
+    pass
