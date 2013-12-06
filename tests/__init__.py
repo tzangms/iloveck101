@@ -36,7 +36,6 @@ def list_mock(url, request):
     return content
 
 
-
 class CK101Test(unittest.TestCase):
     def setUp(self):
         self.thread_url = 'http://ck101.com/thread-2818521-1-1.html'
@@ -51,6 +50,9 @@ class CK101Test(unittest.TestCase):
     def test_list(self):
         with HTTMock(list_mock, image_mock):
             iloveck101(self.list_url)
+
+    def test_not_ck101(self):
+        iloveck101('http://google.com/')
 
 
 class UtilsTest(unittest.TestCase):
