@@ -5,7 +5,7 @@ import unittest
 
 from iloveck101.utils import parse_url, get_image_info
 from iloveck101.iloveck101 import iloveck101
-from httmock import urlmatch, HTTMock
+from httmock import urlmatch, HTTMock, all_requests
 
 TEST_DIR = os.path.abspath(os.path.join(__file__, '..'))
 
@@ -19,7 +19,7 @@ def image_mock(url, request):
 
 
 @urlmatch(netloc=r'(.*\.)?ck101\.com$')
-def html_mock(url, request):
+def thread_mock(url, request):
     html = os.path.join('fixtures', '2818521.html')
     with open(os.path.join(TEST_DIR, html)) as f:
         content = f.read()
@@ -27,15 +27,31 @@ def html_mock(url, request):
     return content
 
 
+@all_requests
+def list_mock(url, request):
+    html = os.path.join('fixtures', 'beauty.html')
+    with open(os.path.join(TEST_DIR, html)) as f:
+        content = f.read()
+
+    return content
+
+
+
 class CK101Test(unittest.TestCase):
     def setUp(self):
-        self.url = 'http://ck101.com/thread-2818521-1-1.html'
+        self.thread_url = 'http://ck101.com/thread-2818521-1-1.html'
+        self.list_url = 'http://ck101.com/beauty/'
 
-    def test_iloveck101(self):
+    def test_thread(self):
 
-        with HTTMock(html_mock, image_mock):
-            iloveck101(self.url)
-        
+        with HTTMock(thread_mock, image_mock):
+            iloveck101(self.thread_url)
+
+
+    def test_list(self):
+        with HTTMock(list_mock, image_mock):
+            iloveck101(self.list_url)
+
 
 class UtilsTest(unittest.TestCase):
     def setUp(self):
@@ -43,7 +59,7 @@ class UtilsTest(unittest.TestCase):
 
 
     def test_parse_url(self):
-        with HTTMock(html_mock):
+        with HTTMock(thread_mock):
             title, image_urls = parse_url(self.url)
 
         self.assertEqual(title, u'蔡依林+心凌的綜合體？！19歲「無名時代的正妹」陳敬宣現在正翻了......')
