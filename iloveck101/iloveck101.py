@@ -10,7 +10,8 @@ monkey.patch_all()
 
 import requests
 from lxml import etree
-from utils import get_image_info
+from utils import get_image_info, parse_url
+from exceptions import URLParseError
 from more_itertools import chunked
 
 REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}
@@ -84,37 +85,16 @@ def retrieve_thread(url):
     if not os.path.exists(base_folder):
         os.mkdir(base_folder)
 
-    # fetch html and find images
-    title = None
-    for attemp in range(3):
-        resp = requests.get(url, headers=REQUEST_HEADERS)
-        if resp.status_code != 200:
-            print 'Retrying ...'
-            continue
-
-        # parse html
-        html = etree.HTML(resp.content)
-
-        # title
-        try:
-            title = html.find('.//title').text.split(' - ')[0].replace('/', '').strip()
-            break
-        except AttributeError:
-            print 'Retrying ...'
-            continue
-
-
-    if title is None:
+    # parse title and images
+    try:
+        title, image_urls = parse_url(url)
+    except URLParseError:
         sys.exit('Oops, can not fetch the page')
-
 
     # create target folder for saving images
     folder = os.path.join(base_folder, "%s - %s" % (thread_id, title))
     if not os.path.exists(folder):
         os.mkdir(folder)
-
-    # iterate and save images
-    image_urls = html.xpath('//img/@file')
 
     def process_image_worker(image_url):
         filename = image_url.rsplit('/', 1)[1]
