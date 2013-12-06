@@ -40,7 +40,7 @@ def list_mock(url, request):
 
 @all_requests
 def error_mock(url, request):
-    return {'status_code': 200, 'content': 'Hi'}
+    return {'status_code': 400, 'content': 'Hi'}
 
 
 
