@@ -1,5 +1,8 @@
-from cStringIO import StringIO
 import struct
+from cStringIO import StringIO
+
+import requests
+from lxml import etree
 
 
 def get_image_info(data):
@@ -60,3 +63,35 @@ def get_image_info(data):
             pass
 
     return content_type, width, height
+
+
+def parse_url(url):
+    """
+    parse image_url from given url
+    """
+
+    REQUEST_HEADERS = {
+        'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'
+    }
+
+    # fetch html and find images
+    for attemp in range(3):
+        resp = requests.get(url, headers=REQUEST_HEADERS)
+        if resp.status_code != 200:
+            print 'Retrying ...'
+            continue
+
+        # parse html
+        html = etree.HTML(resp.content)
+
+        # title
+        try:
+            title = html.find('.//title').text.split(' - ')[0].replace('/', '').strip()
+            break
+        except AttributeError:
+            print 'Retrying ...'
+            continue
+
+    image_urls = html.xpath('//img/@file')
+    return title, image_urls
+ 
