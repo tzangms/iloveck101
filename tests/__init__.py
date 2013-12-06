@@ -4,7 +4,23 @@ import os
 import unittest
 
 from iloveck101.utils import parse_url, get_image_info
+from iloveck101.iloveck101 import iloveck101
+from httmock import urlmatch, HTTMock
 
+
+class CK101Test(unittest.TestCase):
+    def setUp(self):
+        self.url = 'http://ck101.com/thread-2818521-1-1.html'
+
+    def test_iloveck101(self):
+
+        @urlmatch(netloc=r'(.*\.)?ck101\.com$')
+        def ck101_mock(url, request):
+            return 'Feeling lucky, punk?'
+
+        with HTTMock(ck101_mock):
+            iloveck101(self.url)
+        
 
 class UtilsTest(unittest.TestCase):
     def setUp(self):
