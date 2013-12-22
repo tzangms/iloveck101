@@ -74,6 +74,14 @@ def retrieve_thread(url):
     system = platform.system()
     if system == 'Darwin':
         picfolder = 'Pictures'
+    elif system == 'Windows':
+        release = platform.release()
+        if release in ['Vista', '7', '8']:
+            picfolder = 'Pictures'
+        elif release is 'XP':
+            picfolder = os.path.join('My Documents', 'My Pictures')
+        else:
+            picfolder = ''
     else:
         picfolder = ''
 
