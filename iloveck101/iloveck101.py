@@ -29,9 +29,12 @@ def iloveck101(url):
         if 'thread' in url:
             retrieve_thread(url)
         else:
-            for thread in retrieve_thread_list(url):
-                if thread is not None:
-                    retrieve_thread(thread)
+            try:
+                for thread in retrieve_thread_list(url):
+                    if thread is not None:
+                        retrieve_thread(thread)
+            except KeyboardInterrupt:
+                print 'I love ck101'
     else:
         sys.exit('This is not ck101 url')
 
@@ -115,10 +118,13 @@ def retrieve_thread(url):
         with open(os.path.join(folder, filename), 'wb+') as f:
             f.write(resp.content)
 
-    for chunked_image_urls in chunked(image_urls, CHUNK_SIZE):
-        jobs = [gevent.spawn(process_image_worker, image_url)
-                for image_url in chunked_image_urls]
-        gevent.joinall(jobs)
+    try:
+        for chunked_image_urls in chunked(image_urls, CHUNK_SIZE):
+            jobs = [gevent.spawn(process_image_worker, image_url)
+                    for image_url in chunked_image_urls]
+            gevent.joinall(jobs)
+    except KeyboardInterrupt:
+        raise KeyboardInterrupt
 
 
 def main():
