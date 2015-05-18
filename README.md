@@ -1,7 +1,7 @@
 我愛卡提諾
 ==========
 
-[![PyPI Version](https://badge.fury.io/py/iloveck101.png)](https://pypi.python.org/pypi/iloveck101) [![Build Status](https://travis-ci.org/tzangms/iloveck101.png?branch=master)](https://travis-ci.org/tzangms/iloveck101) [![Coverage Status](https://coveralls.io/repos/tzangms/iloveck101/badge.png)](https://coveralls.io/r/tzangms/iloveck101) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tzangms/iloveck101/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![PyPI Version](https://badge.fury.io/py/iloveck101.png)](https://pypi.python.org/pypi/iloveck101) [![Build Status](https://travis-ci.org/tzangms/iloveck101.png?branch=master)](https://travis-ci.org/tzangms/iloveck101) [![Coverage Status](https://coveralls.io/repos/tzangms/iloveck101/badge.png)](https://coveralls.io/r/tzangms/iloveck101) [![Code Health](https://landscape.io/github/tzangms/iloveck101/master/landscape.svg?style=flat)](https://landscape.io/github/tzangms/iloveck101/master)
 
 沒錯, 你沒看錯, 我愛卡提諾。
 
