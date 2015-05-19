@@ -18,6 +18,7 @@ from .exceptions import URLParseError
 
 REQUEST_HEADERS = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}
 BASE_URL = 'http://ck101.com/'
+THREAD_URL = BASE_URL + 'thread-%s-1-1.html'
 CHUNK_SIZE = 3
 
 
@@ -37,7 +38,11 @@ def iloveck101(url):
             except KeyboardInterrupt:
                 print 'I love ck101'
     else:
-        sys.exit('This is not ck101 url')
+        url = url.strip()
+        if url.isdigit():
+            retrieve_thread(THREAD_URL % url)
+        else:
+            sys.exit('This is not ck101 url')
 
 
 def retrieve_thread_list(url):
