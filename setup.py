@@ -20,7 +20,7 @@ setup(
     },
     install_requires = [
         "lxml==3.2.4",
-        "requests==2.0.1",
+        "requests==2.20.0",
         "gevent==1.0",
         "more-itertools==2.2",
     ],
